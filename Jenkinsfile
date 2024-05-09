@@ -34,7 +34,7 @@ pipeline {
                    -Dquarkus.container-image.group=$QUAY_USER_USR \
                    -Dquarkus.container-image.name=do400-deploying-environments \
                    -Dquarkus.container-image.username=$QUAY_USER_USR \
-                   -Dquarkus.container-image.password=$QUAY_USER_PSW \
+                   -Dquarkus.container-image.password="$QUAY_USER_PSW" \
                    -Dquarkus.container-image.push=true 
                 '''
             }
