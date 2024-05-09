@@ -19,6 +19,15 @@ pipeline {
                  archiveArtifacts 'target/*.jar'
             }
         }
+        stage('Build Image') {
+            environment { QUAY = credentials('QUAY_USER')}
+            steps {
+                sh '''
+                    ./mvnw quarkus:add-extension \
+                    -Dextensions="kubernetes,container-image-jib"
+                '''
+            }
+        }
         
     }
 }
