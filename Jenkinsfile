@@ -12,13 +12,13 @@ pipeline {
     stages {
         stage('Tests') {
             steps {
-                sh './shopping-cart/mvnw clean test'
+                sh './mvnw clean test'
             }
         }
         stage('Package') {
             steps {
                 sh '''
-                   ./shopping-cart/mvnw package -DskipTests \
+                   ./mvnw package -DskipTests \
                    -Dquarkus.package.type=uber-jar
                  '''
                  archiveArtifacts 'target/*.jar'
@@ -28,11 +28,11 @@ pipeline {
             environment { QUAY = credentials('QUAY_USER') }
             steps {
                 sh '''
-                   ./shopping-cart/mvnw quarkus:add-extension \
+                   ./mvnw quarkus:add-extension \
                    -Dextensions="kubernetes,container-image-jib"
                 '''
                 sh '''
-                   ./shopping-cart/mvnw package -DskipTests \
+                   ./mvnw package -DskipTests \
                    -Dquarkus.jib.base-jvm-image=quay.io/redhattraining/do400-java-alpine-openjdk11-jre:latest \
                    -Dquarkus.container-image.build=true  \
                    -Dquarkus.container-image.registry=quay.io \
