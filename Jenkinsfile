@@ -19,8 +19,6 @@ pipeline {
                  archiveArtifacts 'target/*.jar'
             }
         }
-        stage('Build Image') {
-
-        }
+        
     }
 }
